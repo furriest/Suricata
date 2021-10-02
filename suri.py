@@ -1,7 +1,9 @@
 import asyncio
+import os
 from aiogram import Bot, Dispatcher, types
 
-TOKEN = "./token.key"
+TOKEN = os.path.join(os.path.dirname(__file__), './token.key')
+print(TOKEN)
 
 async def start_handler(event: types.Message):
     await event.answer(
