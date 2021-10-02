@@ -3,9 +3,6 @@ from aiogram import Bot, Dispatcher, types
 
 TOKEN = "/opt/suricata/token.key"
 
-with open(TOKEN, 'r') as file:
-    BOT_TOKEN = file.read().replace('\n', '')
-
 async def start_handler(event: types.Message):
     await event.answer(
         f"Hello, {event.from_user.get_mention(as_html=True)} 👋!",
@@ -19,6 +16,8 @@ async def suri_handler(event: types.Message):
     )
 
 async def main():
+    with open(TOKEN, 'r') as file:
+        BOT_TOKEN = file.read().replace('\n', '')
     bot = Bot(token=BOT_TOKEN)
     try:
         disp = Dispatcher(bot=bot)
