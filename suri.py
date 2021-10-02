@@ -14,7 +14,7 @@ async def start_handler(event: types.Message):
 
 async def suri_handler(event: types.Message):
     await event.answer(
-        f"Hello, suri {event.from_user.get_mention(as_html=True)} 👋!",
+        f"Hello, my fellow {event.from_user.get_mention(as_html=True)} 👋!",
         parse_mode=types.ParseMode.HTML,
     )
 
