@@ -1,7 +1,7 @@
 import asyncio
 from aiogram import Bot, Dispatcher, types
 
-TOKEN = "/opt/suricata/token.key"
+TOKEN = "./token.key"
 
 async def start_handler(event: types.Message):
     await event.answer(
