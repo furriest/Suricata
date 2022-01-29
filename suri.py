@@ -1,8 +1,11 @@
 import asyncio
 import os
 from aiogram import Bot, Dispatcher, types
+import pymysql
 
 TOKEN = os.path.join(os.path.dirname(__file__), 'token.key')
+sqlic = pymysql.connect(host='localhost', user='suri', password='suripa$s', database='suri', autocommit=True, cursorclass=pymysql.cursors.DictCursor)
+
 
 async def start_handler(event: types.Message):
     await event.answer(
@@ -12,19 +15,35 @@ async def start_handler(event: types.Message):
 
 async def help_handler(event: types.Message):
     await event.answer(
-        f"Ты можешь подписаться на любой поиск на сайте moscow.qtickets.events. Есть три команды - /subscribe Запрос, /list, /unsubscribe Запрос. Например, /subscribe Гринько",
+        f"Ты можешь подписаться на любой поиск на сайте moscow.qtickets.events. Команды - /subscribe и /unsubscribe.",
         parse_mode=types.ParseMode.HTML,
     )
 
 async def subscribe_handler(event: types.Message):
+    sqlic.ping(reconnect=True)
+    cursor = sqlic.cursor()
+    req = "INSERT INTO subs (s_id, r_id) VALUES(" + str(event.chat.id) + ", 1) ON DUPLICATE KEY UPDATE s_id=" + str(event.chat.id)
+    try:
+        cursor.execute(req)
+    except:
+        pass
+    cursor.close()
     await event.answer(
-        f"Chat ID is {event.chat.id}, Message is {event.text}",
+        f"Подписка удалась",
         parse_mode=types.ParseMode.HTML,
     )
 
 async def unsubscribe_handler(event: types.Message):
+    sqlic.ping(reconnect=True)
+    cursor = sqlic.cursor()
+    req = "DELETE FROM subs WHERE s_id=" + str(event.chat.id)
+    try:
+        cursor.execute(req)
+    except:
+        pass
+    cursor.close()
     await event.answer(
-        f"Chat ID is {event.chat.id}, Message is {event.text}",
+        f"Отписали успешно",
         parse_mode=types.ParseMode.HTML,
     )
 
@@ -33,6 +52,7 @@ async def list_handler(event: types.Message):
         f"Chat ID is {event.chat.id}, Message is {event.text}",
         parse_mode=types.ParseMode.HTML,
     )
+    
 
 async def id_handler(event: types.Message):
     await event.answer(
