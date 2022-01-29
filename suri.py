@@ -15,7 +15,7 @@ async def start_handler(event: types.Message):
 
 async def help_handler(event: types.Message):
     await event.answer(
-        f"Ты можешь подписаться на любой поиск на сайте moscow.qtickets.events. Команды - /subscribe и /unsubscribe.",
+        f"Ты можешь подписаться на поиск концертов Николая Гринько на сайте moscow.qtickets.events. Команды - /subscribe и /unsubscribe. Проверка изменений - раз в полчаса.",
         parse_mode=types.ParseMode.HTML,
     )
 
