@@ -22,7 +22,7 @@ async def help_handler(event: types.Message):
 async def subscribe_handler(event: types.Message):
     sqlic.ping(reconnect=True)
     cursor = sqlic.cursor()
-    chk = "SELECT * from subs WHERE s_id=" + str(event.chat.id) + "AND r_id=1"
+    chk = "SELECT * from subs WHERE s_id=" + str(event.chat.id) + " AND r_id=1"
     req = "INSERT INTO subs (s_id, r_id) VALUES(" + str(event.chat.id) + ", 1) ON DUPLICATE KEY UPDATE s_id=" + str(event.chat.id)
     try:
         cursor.execute(chk)
