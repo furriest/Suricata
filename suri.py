@@ -29,13 +29,13 @@ async def subscribe_handler(event: types.Message):
     except:
         pass
     if cursor.fetchall():
-        status = " уже существует" 
+        status = "уже существует" 
     else:
         try:
             cursor.execute(req)
-            status = " удалась" 
+            status = "удалась" 
         except:
-            status = " не удалась. Напишите @furriest" 
+            status = "не удалась. Напишите @furriest" 
             pass
     cursor.close()
     
